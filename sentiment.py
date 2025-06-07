@@ -70,7 +70,7 @@ user_input = st.text_area("Type your review here:", height=150, placeholder="e.g
 
 # Prediction
 if user_input.strip():
-    prediction = model.predict([user_input])[0]
+    prediction = model.predict([user_input])
 
     st.markdown("### 🔍 Result")
 
