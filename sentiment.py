@@ -17,7 +17,6 @@ warnings.filterwarnings('ignore')
 
 import joblib
 model = joblib.load('svm_pipeline.pkl')
-vectorizer = joblib.load('vectorizer.pkl')
 
 import streamlit as st
 import joblib
