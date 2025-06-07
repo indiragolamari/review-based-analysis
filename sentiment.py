@@ -16,7 +16,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 import joblib
-model = joblib.load('lr_pipeline.pkl')
+joblib.dump(model, 'lr_pipeline.pkl')
 
 import streamlit as st
 import joblib
