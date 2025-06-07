@@ -15,7 +15,9 @@ import pickle
 import warnings
 warnings.filterwarnings('ignore')
 
-model=joblib.load(open('lr_pipeline.pkl','rb'))
+import pickle
+with open("lr_pipeline.pkl", "rb") as f:
+    model = pickle.load(f)
 
 import streamlit as st
 import joblib
