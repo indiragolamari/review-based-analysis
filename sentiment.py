@@ -15,8 +15,14 @@ import pickle
 import warnings
 warnings.filterwarnings('ignore')
 
+from sklearn.linear_model import LogisticRegression
+from sklearn.feature_extraction.text import TfidfVectorizer # Import TfidfVectorizer as it's also used
+from sklearn.pipeline import Pipeline
+model= Pipeline([
+    ('tfidf_vectorizer', TfidfVectorizer(ngram_range=(1,2),stop_words=None,lowercase=True)),
+    ('linearregression', LogisticRegression())])
 import joblib
-joblib.dump(model, 'lr_pipeline.pkl')
+joblib.dump(model,'lr_pipeline.pkl')
 
 import streamlit as st
 import joblib
