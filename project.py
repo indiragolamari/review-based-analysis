@@ -7,10 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/10naF8G3WA2TjehQzEv1ih_s-7X3igynz
 """
 
-!pip install deep_translator
-
-!pip install streamlit
-
 import pandas as pd
 import numpy as np
 import spacy
@@ -41,22 +37,6 @@ nltk.download('punkt_tab')
 nltk.download('vader_lexicon')
 
 df = pd.read_csv("P543.csv",on_bad_lines='skip',encoding='latin-1')
-
-df.head()
-
-df.isnull().sum()
-
-df.duplicated().any()
-
-df.shape
-
-df.describe()
-
-df['len']=df['body'].apply(len)
-
-df
-
-df.groupby('rating').describe()
 
 # Combine title and body into one text column
 df['text'] = df['title'] + " " + df['body']
@@ -99,8 +79,6 @@ for index, row in df.iterrows():
 #Create the DataFrame from the list of dictionaries
 sent_df = pd.DataFrame(sentence_data)
 
-sent_df
-
 def label_sentiment(rating):
     if rating <= 2:
         return 'negative'
@@ -110,8 +88,6 @@ def label_sentiment(rating):
         return 'positive'
 
 sent_df['sentiment'] = sent_df['rating'].apply(label_sentiment)
-
-sent_df
 
 sns.countplot(data=sent_df, x='sentiment')
 plt.title("Distribution of Sentiments")
@@ -134,22 +110,6 @@ for sentiment in sent_df['sentiment'].unique():
     plt.axis('off')
     plt.title(f'WordCloud for {sentiment} Reviews')
     plt.show()
-
-most_common_rating = sent_df['rating'].mode()[0]
-print(f"The most frequent rating given by customers is: {most_common_rating}")
-
-# we can  can also see the frequency of each rating
-rating_counts = sent_df['rating'].value_counts()
-print("\nFrequency of each rating:")
-rating_counts
-
-# finding the mean values of ratings
-if 'rating' in df.columns:
-    mean_of_rating = df['rating'].mean()
-    print(f"The mean rating given by customers is: {mean_of_rating}")
-else:
-    print("The DataFrame does not contain a 'rating' column. Please check the column names.")
-print("\033[94m*****This ratings tells us that The eproduct is above Average*****\033[0m")
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.svm import SVC
@@ -181,6 +141,8 @@ print(classification_report(y_test,y_pred))
 
 accuracy_score(y_test,y_pred)
 
-# Save the trained pipeline
-joblib.dump(lr, "lr_pipeline.pkl")
+import pickle
+file='lr_pipeline.pkl'
+
+pickle.dump(model,open(file,'wb'))
 
