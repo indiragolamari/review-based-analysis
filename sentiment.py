@@ -15,7 +15,7 @@ import pickle
 import warnings
 warnings.filterwarnings('ignore')
 
-model=joblib.load("lr_pipeline.pkl")
+model=pickle.load(open('lr_pipeline.pkl','rb'))
 
 import streamlit as st
 import joblib
@@ -69,8 +69,14 @@ st.markdown("### ✍️ Your Review")
 user_input = st.text_area("Type your review here:", height=150, placeholder="e.g., The product quality was amazing!")
 
 # Prediction
-if user_input.strip():
-    prediction = model.predict([user_input])
+# Only show output after user types something
+if user_input:
+    input_data = np.array([user_input])
+
+    # Prediction
+    prediction = model.predict(input_data)[0]
+    probability = model.predict_proba(input_data)[0][1]
+
 
     st.markdown("### 🔍 Result")
 
