@@ -16,7 +16,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 import joblib
-model = joblib.load('svm_pipeline.pkl')
+model = joblib.load('lr_pipeline.pkl')
 
 import streamlit as st
 import joblib
@@ -59,7 +59,7 @@ st.markdown("Enter your review below and let AI detect whether the sentiment is 
 
 # Load the model
 try:
-    model = joblib.load("svm_pipeline.pkl")
+    model = joblib.load("lr_pipeline.pkl")
     st.success("✅ Model loaded successfully!")
 except Exception as e:
     st.error(f"❌ Failed to load model: {e}")
